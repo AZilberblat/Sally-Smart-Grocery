@@ -1,21 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:sally_smart/utilities/product_card.dart';
 import 'package:sally_smart/utilities/scan_button_const.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter/services.dart';
 
 import 'scan_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
+
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  String _scanBarcode = 'Unknown';
   String productName = 'Product Test';
   double productPrice = 55.5;
   IconData productIcon = Icons.add_shopping_cart;
 //  List<ProductCard> tempShoppingList = [];
   List<ProductCard> shoppingList = [];
+
+  Future<void> initPlatformState() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes =
+          await FlutterBarcodeScanner.scanBarcode("#ff6666", "Cancel", true);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
+  }
 
 //  List<ProductCard> reverseList() {
 //    List<ProductCard> myShoppingList = tempShoppingList.reversed;
@@ -55,44 +79,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   itemBuilder: (context, index) {
                     return shoppingList[index];
                   },
-//                  children: myShoppingList,
                 )),
-//                Expanded(
-//                  child: Padding(
-//                    padding: EdgeInsets.all(10.0),
-//                    child: Container(
-//                        child: Column(
-//                      children: <Widget>[
-//                        ProductCard(
-//                          productName: 'Banana',
-//                          productPrice: 32.6,
-//                          productIcon: Icons.face,
-//                        ),
-//                        Card(
-//                          elevation: 5.0,
-//                          child: ListTile(
-//                            leading: Icon(Icons.add_shopping_cart),
-//                            title: Text('Test'),
-//                          ),
-//                        ),
-//                        Card(
-//                          elevation: 5.0,
-//                          child: ListTile(
-//                            leading: Icon(Icons.add_shopping_cart),
-//                            title: Text('Test'),
-//                          ),
-//                        ),
-//                        Card(
-//                          elevation: 5.0,
-//                          child: ListTile(
-//                            leading: Icon(Icons.add_shopping_cart),
-//                            title: Text('Test'),
-//                          ),
-//                        ),
-//                      ],
-//                    )),
-//                  ),
-//                ),
                 Container(
                   child: Center(
                     child: Padding(
@@ -125,7 +112,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             iconData: Icons.camera,
                             buttonText: 'סרוק מוצר',
                             onPressed: () {
-                              Navigator.pushNamed(context, ScanScreen.id);
+                              //Navigator.pushNamed(context, ScanScreen.id);
+                              initPlatformState();
+                              print(_scanBarcode);
                             },
                             color: Colors.teal,
                           ),
