@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sally_smart/utilities/product_card.dart';
 import 'package:sally_smart/utilities/scan_button_const.dart';
 
 import 'scan_screen.dart';
@@ -34,12 +35,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   child: Container(
                       child: Column(
                     children: <Widget>[
-                      Card(
-                        elevation: 5.0,
-                        child: ListTile(
-                          leading: Icon(Icons.add_shopping_cart),
-                          title: Text('Test'),
-                        ),
+                      ProductCard(
+                        productName: 'Banana',
+                        productPrice: 32.6,
+                        productIcon: Icons.face,
                       ),
                       Card(
                         elevation: 5.0,
