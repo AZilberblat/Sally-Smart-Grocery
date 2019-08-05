@@ -11,6 +11,18 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  String productName = 'Product Test';
+  double productPrice = 55.5;
+  IconData productIcon = Icons.add_shopping_cart;
+//  List<ProductCard> tempShoppingList = [];
+  List<ProductCard> shoppingList = [];
+
+//  List<ProductCard> reverseList() {
+//    List<ProductCard> myShoppingList = tempShoppingList.reversed;
+//
+//    return myShoppingList;
+//  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,43 +38,81 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                SizedBox(
-                  height: 10,
-                  width: 10,
-                ),
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.symmetric(vertical: 20.0),
                   child: Container(
-                      child: Column(
-                    children: <Widget>[
-                      ProductCard(
-                        productName: 'Banana',
-                        productPrice: 32.6,
-                        productIcon: Icons.face,
-                      ),
-                      Card(
-                        elevation: 5.0,
-                        child: ListTile(
-                          leading: Icon(Icons.add_shopping_cart),
-                          title: Text('Test'),
-                        ),
-                      ),
-                      Card(
-                        elevation: 5.0,
-                        child: ListTile(
-                          leading: Icon(Icons.add_shopping_cart),
-                          title: Text('Test'),
-                        ),
-                      ),
-                      Card(
-                        elevation: 5.0,
-                        child: ListTile(
-                          leading: Icon(Icons.add_shopping_cart),
-                          title: Text('Test'),
-                        ),
-                      ),
-                    ],
-                  )),
+                    child: Text(
+                      'Welcome Message',
+                      style: TextStyle(
+                          fontSize: 30.0, fontWeight: FontWeight.w900),
+                    ),
+                  ),
+                ),
+                Expanded(
+                    child: ListView.builder(
+                  reverse: true,
+                  itemCount: shoppingList.length,
+                  itemBuilder: (context, index) {
+                    return shoppingList[index];
+                  },
+//                  children: myShoppingList,
+                )),
+//                Expanded(
+//                  child: Padding(
+//                    padding: EdgeInsets.all(10.0),
+//                    child: Container(
+//                        child: Column(
+//                      children: <Widget>[
+//                        ProductCard(
+//                          productName: 'Banana',
+//                          productPrice: 32.6,
+//                          productIcon: Icons.face,
+//                        ),
+//                        Card(
+//                          elevation: 5.0,
+//                          child: ListTile(
+//                            leading: Icon(Icons.add_shopping_cart),
+//                            title: Text('Test'),
+//                          ),
+//                        ),
+//                        Card(
+//                          elevation: 5.0,
+//                          child: ListTile(
+//                            leading: Icon(Icons.add_shopping_cart),
+//                            title: Text('Test'),
+//                          ),
+//                        ),
+//                        Card(
+//                          elevation: 5.0,
+//                          child: ListTile(
+//                            leading: Icon(Icons.add_shopping_cart),
+//                            title: Text('Test'),
+//                          ),
+//                        ),
+//                      ],
+//                    )),
+//                  ),
+//                ),
+                Container(
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 70.0),
+                      child: ScanMainButton(
+                          color: Colors.indigo,
+                          iconData: Icons.add,
+                          buttonText: 'Add Test Product',
+                          onPressed: () {
+                            setState(() {
+                              shoppingList.add(ProductCard(
+                                productName: productName,
+                                productPrice: productPrice,
+                                productIcon: productIcon,
+                              ));
+                            });
+                            print(shoppingList);
+                          }),
+                    ),
+                  ),
                 ),
                 Container(
                   child: Padding(
@@ -92,3 +142,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ));
   }
 }
+
+//class MyShoppingList extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    List<ProductCard> myShoppingList = [];
+//    for (var item in myShoppingList) {
+//      final String productName = 'Test product';
+//      final double productPrice = 55.5;
+//      final IconData productIcon = Icons.add_shopping_cart;
+//      final productCard = ProductCard(
+//        productName: productName,
+//        productPrice: productPrice,
+//        productIcon: productIcon,
+//      );
+//    }
+//    return Column(
+//      children: myShoppingList,
+//    );
+//  }
+//}
