@@ -4,12 +4,13 @@ class ProductCard extends StatelessWidget {
   final String productName;
   final double productPrice;
   final IconData productIcon;
+  final String id;
 
-  const ProductCard({
-    this.productIcon,
-    @required this.productName,
-    @required this.productPrice,
-  });
+  const ProductCard(
+      {this.productIcon,
+      @required this.productName,
+      @required this.productPrice,
+      this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class ProductCard extends StatelessWidget {
           ),
         ),
         title: Text(productName),
-        subtitle: Text(productPrice.toString()),
+        subtitle: Text('${productPrice.toString()} ₪'),
         trailing: IconButton(
             icon: Icon(
               Icons.cancel,

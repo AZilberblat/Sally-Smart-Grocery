@@ -5,6 +5,8 @@ import 'package:sally_smart/screens/checkout_screen.dart';
 import 'package:sally_smart/utilities/product_card.dart';
 import 'package:sally_smart/utilities/scan_button_const.dart';
 
+List<ProductCard> shoppingList = [];
+
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
 
@@ -17,8 +19,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   String productName = 'Product Test';
   double productPrice = 55.5;
   IconData productIcon = Icons.add_shopping_cart;
-//  List<ProductCard> tempShoppingList = [];
-  List<ProductCard> shoppingList = [];
 
   Future<void> initPlatformState() async {
     String barcodeScanRes;
@@ -40,20 +40,30 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     });
   }
 
-//  List<ProductCard> reverseList() {
-//    List<ProductCard> myShoppingList = tempShoppingList.reversed;
-//
-//    return myShoppingList;
+//  List createListView() {
+//    for (var product in shoppingList) {
+//      shoppingList.add(ProductCard(
+//        productName: productName,
+//        productPrice: productPrice,
+//        productIcon: productIcon,
+//        id: shoppingList.length,
+//      ));
+//    }
 //  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: Icon(Icons.shopping_basket),
+          backgroundColor: Colors.black54,
+          leading: Icon(
+            Icons.shopping_basket,
+            size: 30,
+          ),
           title: Text(
             'Sally',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, letterSpacing: 4, fontSize: 25),
           ),
         ),
         body: SafeArea(
@@ -62,7 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                  padding: EdgeInsets.symmetric(vertical: 25.0),
                   child: Container(
                     child: Text(
                       'Welcome Message',
@@ -71,14 +81,29 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ),
                 ),
+                Divider(
+                  height: 4,
+                  indent: 5,
+                  endIndent: 5,
+                  color: Colors.blueGrey,
+                ),
                 Expanded(
-                    child: ListView.builder(
-                  reverse: true,
-                  itemCount: shoppingList.length,
-                  itemBuilder: (context, index) {
-                    return shoppingList[index];
-                  },
+                    child: Container(
+                  color: Colors.black38,
+                  child: ListView.builder(
+                    reverse: true,
+                    itemCount: shoppingList.length,
+                    itemBuilder: (context, index) {
+                      return shoppingList[index];
+                    },
+                  ),
                 )),
+                Divider(
+                  height: 4,
+                  indent: 5,
+                  endIndent: 5,
+                  color: Colors.blueGrey,
+                ),
                 Container(
                   child: Center(
                     child: Padding(
@@ -89,6 +114,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           buttonText: 'Add Test Product',
                           onPressed: () {
                             setState(() {
+                              //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
                               shoppingList.add(ProductCard(
                                 productName: productName,
                                 productPrice: productPrice,
@@ -113,9 +139,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             onPressed: () async {
                               //Navigator.pushNamed(context, ScanScreen.id);
                               await initPlatformState();
-                              print(_scanBarcode);
                               //Changes the product name by referencing to the p.name
                               productName = _scanBarcode;
+                              setState(() {
+                                //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
+                                shoppingList.add(ProductCard(
+                                  productName: productName,
+                                  productPrice: productPrice,
+                                  productIcon: productIcon,
+                                ));
+                              });
                             },
                             color: Colors.teal,
                           ),
