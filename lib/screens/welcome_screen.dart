@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:sally_smart/screens/checkout_screen.dart';
 import 'package:sally_smart/utilities/product_card.dart';
 import 'package:sally_smart/utilities/scan_button_const.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:flutter/services.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
@@ -119,7 +120,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             color: Colors.teal,
                           ),
                           ScanMainButton(
-                              buttonText: 'סרוק מוצר', onPressed: () {}),
+                              iconData: Icons.check,
+                              buttonText: 'Pay Now',
+                              color: Colors.green,
+                              onPressed: () {
+                                Navigator.pushNamed(context, CheckoutScreen.id);
+                              }),
                         ],
                       ),
                     ),

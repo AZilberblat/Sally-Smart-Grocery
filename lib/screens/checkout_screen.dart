@@ -9,6 +9,12 @@ class CheckoutScreen extends StatefulWidget {
 class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+        child: Container(
+      child: Text(
+        'Soon To Come',
+        style: TextStyle(fontSize: 60, color: Colors.white),
+      ),
+    ));
   }
 }
