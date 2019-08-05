@@ -109,10 +109,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           ScanMainButton(
                             iconData: Icons.camera,
                             buttonText: 'סרוק מוצר',
-                            onPressed: () {
+                            onPressed: () async {
                               //Navigator.pushNamed(context, ScanScreen.id);
-                              initPlatformState();
+                              await initPlatformState();
                               print(_scanBarcode);
+                              //Changes the product name by referencing to the p.name
+                              productName = _scanBarcode;
                             },
                             color: Colors.teal,
                           ),
