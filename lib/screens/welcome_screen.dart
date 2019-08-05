@@ -4,8 +4,6 @@ import 'package:sally_smart/utilities/scan_button_const.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/services.dart';
 
-import 'scan_screen.dart';
-
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
 
