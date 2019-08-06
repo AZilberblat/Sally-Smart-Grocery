@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -17,7 +19,7 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   String _scanBarcode = 'Unknown';
   String productName = 'Product Test';
-  double productPrice = 55.5;
+  double productPrice;
   IconData productIcon = Icons.add_shopping_cart;
 
   Future<void> initPlatformState() async {
@@ -113,11 +115,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           iconData: Icons.add,
                           buttonText: 'Add Test Product',
                           onPressed: () {
+                            productPrice = Random().nextDouble() * 100;
                             setState(() {
                               //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
                               shoppingList.add(ProductCard(
                                 productName: productName,
-                                productPrice: productPrice,
+                                productPrice: productPrice.toStringAsFixed(2),
                                 productIcon: productIcon,
                               ));
                             });
@@ -138,6 +141,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             buttonText: 'סרוק מוצר',
                             onPressed: () async {
                               //Navigator.pushNamed(context, ScanScreen.id);
+                              productPrice = Random().nextDouble() * 100;
                               await initPlatformState();
                               //Changes the product name by referencing to the p.name
                               productName = _scanBarcode;
@@ -145,7 +149,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
                                 shoppingList.add(ProductCard(
                                   productName: productName,
-                                  productPrice: productPrice,
+                                  productPrice: productPrice.toStringAsFixed(2),
                                   productIcon: productIcon,
                                 ));
                               });
