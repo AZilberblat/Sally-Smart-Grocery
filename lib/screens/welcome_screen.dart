@@ -22,6 +22,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   double productPrice;
   IconData productIcon = Icons.add_shopping_cart;
   final List<ProductCard> shoppingList = [];
+  int productId = 0;
 
   Future<void> initPlatformState() async {
     String barcodeScanRes;
@@ -99,7 +100,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     itemBuilder: (context, index) {
                       ProductCard item = shoppingList[index];
                       return Dismissible(
-                          key: Key(item.productName),
+                          key: Key(item.id),
                           onDismissed: (direction) {
                             setState(() {
                               shoppingList.removeAt(index);
@@ -130,11 +131,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             productPrice = Random().nextDouble() * 100;
                             setState(() {
                               //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
-                              shoppingList.add(ProductCard(
-                                productName: productName,
-                                productPrice: productPrice.toStringAsFixed(2),
-                                productIcon: productIcon,
-                              ));
+                              shoppingList.add(
+                                ProductCard(
+                                  id: productId.toString(),
+                                  productName: productName,
+                                  productPrice: productPrice.toStringAsFixed(2),
+                                  productIcon: productIcon,
+                                ),
+                              );
+                              productId++;
                             });
                             print(shoppingList);
                           }),
@@ -160,6 +165,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               setState(() {
                                 //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
                                 shoppingList.add(ProductCard(
+                                  id: shoppingList.length.toString(),
                                   productName: productName,
                                   productPrice: productPrice.toStringAsFixed(2),
                                   productIcon: productIcon,

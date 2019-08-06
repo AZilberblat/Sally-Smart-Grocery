@@ -10,7 +10,7 @@ class ProductCard extends StatelessWidget {
       {this.productIcon,
       @required this.productName,
       @required this.productPrice,
-      this.id});
+      @required this.id});
 
   @override
   Widget build(BuildContext context) {
