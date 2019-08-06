@@ -7,7 +7,7 @@ import 'package:sally_smart/screens/checkout_screen.dart';
 import 'package:sally_smart/utilities/product_card.dart';
 import 'package:sally_smart/utilities/scan_button_const.dart';
 
-List<ProductCard> shoppingList = [];
+//List<ProductCard> shoppingList = [];
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
@@ -21,6 +21,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   String productName = 'Product Test';
   double productPrice;
   IconData productIcon = Icons.add_shopping_cart;
+  final List<ProductCard> shoppingList = [];
 
   Future<void> initPlatformState() async {
     String barcodeScanRes;
@@ -96,7 +97,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     reverse: true,
                     itemCount: shoppingList.length,
                     itemBuilder: (context, index) {
-                      return shoppingList[index];
+                      ProductCard item = shoppingList[index];
+                      return Dismissible(
+                          key: Key(item.productName),
+                          onDismissed: (direction) {
+                            setState(() {
+                              shoppingList.removeAt(index);
+                            });
+                          },
+                          background: Container(color: Colors.red),
+                          child:
+                              item //ListTile(title: Text('${item.productName}.')),
+                          );
                     },
                   ),
                 )),
