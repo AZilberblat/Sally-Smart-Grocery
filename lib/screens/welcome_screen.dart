@@ -1,7 +1,9 @@
+import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:sally_smart/screens/checkout_screen.dart';
+import 'package:sally_smart/utilities/constants.dart';
 import 'package:sally_smart/utilities/product_card.dart';
 import 'package:sally_smart/utilities/scan_button_const.dart';
 
@@ -22,11 +24,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   IconData productIcon = Icons.add_shopping_cart;
   final List<ProductCard> shoppingList = [];
   int productId = 0;
+  static AudioCache barcodeSound = AudioCache();
 
   Future<void> initPlatformState() async {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
+      barcodeSound.play('barcode_sound.mp3');
+
       barcodeScanRes =
           await FlutterBarcodeScanner.scanBarcode("#ff6666", "Cancel", true);
     } on PlatformException {
@@ -66,8 +71,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ),
           title: Text(
             'Sally',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, letterSpacing: 4, fontSize: 25),
+            style: kHeaderTextStyle,
           ),
         ),
         body: SafeArea(
@@ -181,6 +185,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               //Changes the product name by referencing to the p.name
                               productName = _scanBarcode;
                               productBarCode = _scanBarcode;
+
                               setState(() {
                                 //checking if a product was already scanned
 
