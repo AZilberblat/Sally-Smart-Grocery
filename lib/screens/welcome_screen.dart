@@ -30,8 +30,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      barcodeSound.play('barcode_sound.mp3');
-
       barcodeScanRes =
           await FlutterBarcodeScanner.scanBarcode("#ff6666", "Cancel", true);
     } on PlatformException {
@@ -47,17 +45,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       _scanBarcode = barcodeScanRes;
     });
   }
-
-//  List createListView() {
-//    for (var product in shoppingList) {
-//      shoppingList.add(ProductCard(
-//        productName: productName,
-//        productPrice: productPrice,
-//        productIcon: productIcon,
-//        id: shoppingList.length,
-//      ));
-//    }
-//  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,63 +70,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   padding: EdgeInsets.symmetric(vertical: 25.0),
                   child: Container(
                     child: Text(
-                      'Welcome Message',
-                      style: TextStyle(
-                          fontSize: 30.0, fontWeight: FontWeight.w900),
+                      'Welcome message',
+                      style: kHeaderTextStyle,
                     ),
                   ),
                 ),
-                Divider(
-                  height: 4,
-                  indent: 5,
-                  endIndent: 5,
-                  color: Colors.black,
-                ),
-                Expanded(
-                    child: Container(
-                  color: Colors.black38,
-                  child: ListView.builder(
-                    reverse: true,
-                    itemCount: shoppingList.length,
-                    itemBuilder: (context, index) {
-                      ProductCard item = shoppingList[index];
-                      return Dismissible(
-                          key: Key(item.id),
-                          direction: DismissDirection.startToEnd,
-                          onDismissed: (direction) {
-                            setState(() {
-                              shoppingList.removeAt(index);
-                            });
-                          },
-                          background: Container(
-                            child: Icon(
-                              Icons.restore_from_trash,
-                              size: 40,
-                            ),
-                            margin: EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                              colors: [
-                                Colors.deepPurple[200],
-                                Colors.deepPurple[300],
-                                Colors.deepPurple[400],
-                                Colors.deepPurple[600],
-                              ],
-                              stops: [0.1, 0.3, 0.6, 0.9],
-                            )),
-                          ),
-                          child:
-                              item //ListTile(title: Text('${item.productName}.')),
-                          );
-                    },
-                  ),
-                )),
-                Divider(
-                  height: 4,
-                  indent: 5,
-                  endIndent: 5,
-                  color: Colors.black,
-                ),
+                DividerSally(),
+                shoppingListBuilder(),
+                DividerSally(),
                 Container(
                   child: Center(
                     child: Padding(
@@ -218,5 +156,46 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
           ),
         ));
+  }
+
+  Expanded shoppingListBuilder() {
+    return Expanded(
+        child: Container(
+      color: Colors.black38,
+      child: ListView.builder(
+        reverse: true,
+        itemCount: shoppingList.length,
+        itemBuilder: (context, index) {
+          ProductCard item = shoppingList[index];
+          return Dismissible(
+              key: Key(item.id),
+              direction: DismissDirection.startToEnd,
+              onDismissed: (direction) {
+                setState(() {
+                  shoppingList.removeAt(index);
+                });
+              },
+              background: Container(
+                child: Icon(
+                  Icons.restore_from_trash,
+                  size: 40,
+                ),
+                margin: EdgeInsets.symmetric(vertical: 5),
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                  colors: [
+                    Colors.deepPurple[200],
+                    Colors.deepPurple[300],
+                    Colors.deepPurple[400],
+                    Colors.deepPurple[600],
+                  ],
+                  stops: [0.1, 0.3, 0.6, 0.9],
+                )),
+              ),
+              child: item //ListTile(title: Text('${item.productName}.')),
+              );
+        },
+      ),
+    ));
   }
 }

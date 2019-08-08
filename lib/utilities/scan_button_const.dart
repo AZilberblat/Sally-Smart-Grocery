@@ -31,7 +31,11 @@ class ScanMainButton extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
                   buttonText,
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Cousine',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ],
