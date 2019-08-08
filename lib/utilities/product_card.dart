@@ -38,48 +38,53 @@ class _ProductCardState extends State<ProductCard> {
         ),
         title: Text(widget.productName),
         subtitle: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text(
-              '$finalPrice ₪',
-            ),
-            SizedBox(
-              width: 40,
-            ),
-            IconButton(
-                icon: Icon(
-                  Icons.add_circle,
-                  color: Colors.tealAccent,
-                  size: 37,
-                ),
-                onPressed: () {
-                  setState(() {
-                    quantity++;
-                  });
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconButton(
+                      icon: Icon(
+                        Icons.add_circle,
+                        color: Colors.tealAccent,
+                        size: 37,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          quantity++;
+                        });
 
-                  print('$quantity');
-                }),
-            Text('$quantity'),
-            IconButton(
-                icon: Icon(
-                  Icons.do_not_disturb_on,
-                  color: Colors.red[200],
-                  size: 37,
-                ),
-                onPressed: () {
-                  setState(() {
-                    quantity--;
-                    if (quantity == 0) {
-                      quantity++;
-                    }
-                  });
+                        print('$quantity');
+                      }),
+                  SizedBox(width: 3),
+                  Text(
+                    '$quantity',
+                  ),
+                  IconButton(
+                      icon: Icon(
+                        Icons.do_not_disturb_on,
+                        color: Colors.red[200],
+                        size: 37,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          quantity--;
+                          if (quantity == 0) {
+                            quantity++;
+                          }
+                        });
 
-                  print('$quantity');
-                }),
-            SizedBox(
-              width: 15,
-            ),
+                        print('$quantity');
+                      }),
+                ],
+              ),
+            )
           ],
+        ),
+        trailing: Text(
+          '$finalPrice ₪',
+          style: TextStyle(fontSize: 18),
         ),
       ),
     );
