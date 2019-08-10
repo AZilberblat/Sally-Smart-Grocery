@@ -1,4 +1,5 @@
 import 'package:audioplayers/audio_cache.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -20,6 +21,7 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  final sallyDatabase = Firestore.instance;
   String _scanBarcode = 'Unknown';
   String productName = 'Product Test';
   double productPrice;
@@ -112,6 +114,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           });
                         },*/
                               {
+                            sallyDatabase.collection('grocery').add({
+                              'barcode': '12345678',
+                              'name': 'listerin',
+                              'price': 55.8
+                            });
                             productPrice = 12.76;
                             setState(() {
                               //adding a ProductCard to the shopping list with the ProductCard const. Works on scan

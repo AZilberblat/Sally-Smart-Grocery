@@ -15,6 +15,11 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_barcode_scanner: ^0.1.5
   audioplayers: ^0.13.1
+  firebase_core: ^0.4.0+8
+  firebase_auth: ^0.14.0+1
+  cloud_firestore: ^0.12.9
+
+
 
 
 
