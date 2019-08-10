@@ -83,7 +83,7 @@ class _ProductCardState extends State<ProductCard> {
           ],
         ),
         trailing: Text(
-          '$finalPrice ₪',
+          '${finalPrice.toStringAsFixed(2)} ₪',
           style: TextStyle(fontSize: 18),
         ),
       ),
