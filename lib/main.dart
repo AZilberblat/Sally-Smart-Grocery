@@ -13,7 +13,7 @@ class Sally extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
           backgroundColor: Colors.indigo, cardColor: Colors.deepPurple[900]),
-      initialRoute: MyHomePage.id,
+      initialRoute: WelcomeScreen.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
