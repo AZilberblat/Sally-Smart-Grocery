@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1009059905745",
+    "firebase_url": "https://sally-87f26.firebaseio.com",
+    "project_id": "sally-87f26",
+    "storage_bucket": "sally-87f26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009059905745:android:0dc854d1e0e29e2d",
+        "android_client_info": {
+          "package_name": "com.abrahamzilberblat.sally_smart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009059905745-u5u12n56hg93m2qokn4oq0oolegdk2nr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvYkEfO_PL4fs-Qs5ysqZcAuu-OduZuHI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009059905745-u5u12n56hg93m2qokn4oq0oolegdk2nr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
