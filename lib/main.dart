@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/scan_screen.dart';
+//import 'screens/scan_screen.dart';
 import 'screens/checkout_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/registration_screen.dart';

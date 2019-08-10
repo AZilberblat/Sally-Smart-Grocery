@@ -6,9 +6,9 @@ import 'package:sally_smart/screens/checkout_screen.dart';
 import 'package:sally_smart/utilities/constants.dart';
 import 'package:sally_smart/utilities/product_card.dart';
 import 'package:sally_smart/utilities/scan_button_const.dart';
-import 'package:sally_smart/utilities/scan_pageML.dart';
-import 'package:flutter_camera_ml_vision/flutter_camera_ml_vision.dart';
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
+//import 'package:sally_smart/utilities/scan_pageML.dart';
+//import 'package:flutter_camera_ml_vision/flutter_camera_ml_vision.dart';
+//import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 
 //List<ProductCard> shoppingList = [];
 
@@ -89,10 +89,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 70.0),
                       child: ScanMainButton(
-                        color: Colors.indigo,
-                        iconData: Icons.add,
-                        buttonText: 'Add Test Product',
-                        onPressed: () async {
+                          color: Colors.indigo,
+                          iconData: Icons.add,
+                          buttonText: 'Add Test Product',
+                          onPressed:
+                              () /*async {
                           final barcode =
                               await Navigator.of(context).push<Barcode>(
                             MaterialPageRoute(
@@ -109,7 +110,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             data.add(barcode.displayValue);
                             print(barcode.displayValue);
                           });
-                        }, /*{
+                        },*/
+                              {
                             productPrice = 12.76;
                             setState(() {
                               //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
@@ -125,8 +127,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               productId++;
                             });
                             print(shoppingList);
-                          }*/
-                      ),
+                          }),
                     ),
                   ),
                 ),

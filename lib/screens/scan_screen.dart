@@ -1,3 +1,4 @@
+/*
 import 'dart:ui';
 
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
@@ -288,3 +289,4 @@ class _ScannerOverlayShape extends ShapeBorder {
     );
   }
 }
+*/

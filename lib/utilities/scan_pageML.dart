@@ -1,8 +1,11 @@
+/*
 import 'dart:ui';
 
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_camera_ml_vision/flutter_camera_ml_vision.dart';
+
+
 
 class ScanPage extends StatefulWidget {
   @override
@@ -221,3 +224,4 @@ class _ScannerOverlayShape extends ShapeBorder {
     );
   }
 }
+*/
