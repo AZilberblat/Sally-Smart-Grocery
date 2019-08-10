@@ -1,8 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'dart:math';
 
 =======
 >>>>>>> parent of 8c31881... bardoce sound
+=======
+import 'dart:math';
+
+>>>>>>> parent of 822e52c... UI and functionaloty changes
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -160,9 +165,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               //Changes the product name by referencing to the p.name
                               productName = _scanBarcode;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                               productBarCode = _scanBarcode;
 >>>>>>> parent of 8c31881... bardoce sound
+=======
+>>>>>>> parent of 822e52c... UI and functionaloty changes
                               setState(() {
                                 //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
                                 shoppingList.add(ProductCard(

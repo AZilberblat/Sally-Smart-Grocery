@@ -20,6 +20,7 @@ class ProductCard extends StatelessWidget {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         leading: Padding(
           padding: EdgeInsets.only(left: 5.0, right: 10),
           child: Icon(
@@ -179,11 +180,14 @@ class ProductCard extends StatelessWidget {
             ],
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 822e52c... UI and functionaloty changes
         leading: Padding(
           padding: const EdgeInsets.only(left: 5.0, right: 10),
           child: Icon(
             productIcon,
             size: 35,
+<<<<<<< HEAD
 >>>>>>> parent of 822e52c... UI and functionaloty changes
           ),
         ),
@@ -202,16 +206,24 @@ class ProductCard extends StatelessWidget {
       ),
 >>>>>>> parent of 822e52c... UI and functionaloty changes
 =======
+=======
+>>>>>>> parent of 822e52c... UI and functionaloty changes
           ),
-          trailing: Transform.rotate(
-            angle: 3.142,
-            child: Icon(
-              Icons.backspace,
-              size: 20,
-              color: Colors.deepOrangeAccent,
+        ),
+        title: Text(productName),
+        subtitle: Text('${productPrice.toString()} ₪'),
+        trailing: IconButton(
+            icon: Icon(
+              Icons.cancel,
+              color: Colors.redAccent,
             ),
+<<<<<<< HEAD
           )),
 >>>>>>> parent of 8c31881... bardoce sound
+=======
+            onPressed: () {}),
+      ),
+>>>>>>> parent of 822e52c... UI and functionaloty changes
     );
   }
 }
