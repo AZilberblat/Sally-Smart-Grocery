@@ -1,34 +1,23 @@
 import 'package:flutter/material.dart';
 
-class ProductCard extends StatefulWidget {
+class ProductCard extends StatelessWidget {
   final String productName;
-  final double productPrice;
+  final String productPrice;
   final IconData productIcon;
   final String id;
-  final String barCode;
 
-  const ProductCard({
-    this.productIcon,
-    @required this.productName,
-    @required this.productPrice,
-    @required this.id,
-    @required this.barCode,
-  });
-
-  @override
-  _ProductCardState createState() => _ProductCardState();
-}
-
-class _ProductCardState extends State<ProductCard> {
-  double finalPrice;
-  int quantity = 1;
+  const ProductCard(
+      {this.productIcon,
+      @required this.productName,
+      @required this.productPrice,
+      @required this.id});
 
   @override
   Widget build(BuildContext context) {
-    finalPrice = quantity * widget.productPrice;
     return Card(
       elevation: 5.0,
       child: ListTile(
+<<<<<<< HEAD
 <<<<<<< HEAD
         leading: Padding(
           padding: EdgeInsets.only(left: 5.0, right: 10),
@@ -140,16 +129,29 @@ class _ProductCardState extends State<ProductCard> {
                 width: 15,
               ),
             ],
+=======
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 5.0, right: 10),
+          child: Icon(
+            productIcon,
+            size: 35,
+>>>>>>> parent of 822e52c... UI and functionaloty changes
           ),
-          trailing: Transform.rotate(
-            angle: 3.142,
-            child: Icon(
-              Icons.backspace,
-              size: 20,
-              color: Colors.deepOrangeAccent,
+        ),
+        title: Text(productName),
+        subtitle: Text('${productPrice.toString()} ₪'),
+        trailing: IconButton(
+            icon: Icon(
+              Icons.cancel,
+              color: Colors.redAccent,
             ),
+<<<<<<< HEAD
           )),
 >>>>>>> parent of 8c31881... bardoce sound
+=======
+            onPressed: () {}),
+      ),
+>>>>>>> parent of 822e52c... UI and functionaloty changes
     );
   }
 }

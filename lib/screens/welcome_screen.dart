@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -18,7 +20,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   String _scanBarcode = 'Unknown';
   String productName = 'Product Test';
   double productPrice;
-  String productBarCode;
   IconData productIcon = Icons.add_shopping_cart;
   final List<ProductCard> shoppingList = [];
   int productId = 0;
@@ -46,7 +47,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.lightBlueAccent,
         appBar: AppBar(
           backgroundColor: Colors.black54,
           leading: Icon(
@@ -73,9 +73,46 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ),
                 ),
+<<<<<<< HEAD
                 DividerSally(),
                 shoppingListBuilder(),
                 DividerSally(),
+=======
+                Divider(
+                  height: 4,
+                  indent: 5,
+                  endIndent: 5,
+                  color: Colors.blueGrey,
+                ),
+                Expanded(
+                    child: Container(
+                  color: Colors.black38,
+                  child: ListView.builder(
+                    reverse: true,
+                    itemCount: shoppingList.length,
+                    itemBuilder: (context, index) {
+                      ProductCard item = shoppingList[index];
+                      return Dismissible(
+                          key: Key(item.id),
+                          onDismissed: (direction) {
+                            setState(() {
+                              shoppingList.removeAt(index);
+                            });
+                          },
+                          background: Container(color: Colors.red),
+                          child:
+                              item //ListTile(title: Text('${item.productName}.')),
+                          );
+                    },
+                  ),
+                )),
+                Divider(
+                  height: 4,
+                  indent: 5,
+                  endIndent: 5,
+                  color: Colors.blueGrey,
+                ),
+>>>>>>> parent of 822e52c... UI and functionaloty changes
                 Container(
                   child: Center(
                     child: Padding(
@@ -85,15 +122,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           iconData: Icons.add,
                           buttonText: 'Add Test Product',
                           onPressed: () {
-                            productPrice = 12.76;
+                            productPrice = Random().nextDouble() * 100;
                             setState(() {
                               //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
                               shoppingList.add(
                                 ProductCard(
-                                  barCode: productBarCode,
                                   id: productId.toString(),
                                   productName: productName,
-                                  productPrice: productPrice,
+                                  productPrice: productPrice.toStringAsFixed(2),
                                   productIcon: productIcon,
                                 ),
                               );
@@ -116,21 +152,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             buttonText: 'סרוק מוצר',
                             onPressed: () async {
                               //Navigator.pushNamed(context, ScanScreen.id);
-                              productPrice = 12.87;
+                              productPrice = Random().nextDouble() * 100;
                               await initPlatformState();
                               //Changes the product name by referencing to the p.name
                               productName = _scanBarcode;
-                              productBarCode = _scanBarcode;
                               setState(() {
-                                //checking if a product was already scanned
-
                                 //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
-
                                 shoppingList.add(ProductCard(
-                                  barCode: productBarCode,
                                   id: shoppingList.length.toString(),
                                   productName: productName,
-                                  productPrice: productPrice,
+                                  productPrice: productPrice.toStringAsFixed(2),
                                   productIcon: productIcon,
                                 ));
                               });
@@ -196,3 +227,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     ));
   }
 }
+
+//class MyShoppingList extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    List<ProductCard> myShoppingList = [];
+//    for (var item in myShoppingList) {
+//      final String productName = 'Test product';
+//      final double productPrice = 55.5;
+//      final IconData productIcon = Icons.add_shopping_cart;
+//      final productCard = ProductCard(
+//        productName: productName,
+//        productPrice: productPrice,
+//        productIcon: productIcon,
+//      );
+//    }
+//    return Column(
+//      children: myShoppingList,
+//    );
+//  }
+//}

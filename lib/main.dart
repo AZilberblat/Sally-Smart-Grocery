@@ -11,8 +11,7 @@ class Sally extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-          backgroundColor: Colors.indigo, cardColor: Colors.deepPurple[900]),
+      theme: ThemeData.dark(),
       initialRoute: WelcomeScreen.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
