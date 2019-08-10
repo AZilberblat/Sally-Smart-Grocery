@@ -50,6 +50,7 @@ flutter:
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   fonts:
     - family: Cousine
@@ -64,6 +65,8 @@ flutter:
 
 
 =======
+=======
+>>>>>>> parent of 8c31881... bardoce sound
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
 
@@ -86,4 +89,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+<<<<<<< HEAD
+>>>>>>> parent of 8c31881... bardoce sound
+=======
 >>>>>>> parent of 8c31881... bardoce sound

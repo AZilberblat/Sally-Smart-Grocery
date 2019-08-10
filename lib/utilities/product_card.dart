@@ -19,6 +19,7 @@ class ProductCard extends StatelessWidget {
       child: ListTile(
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         leading: Padding(
           padding: EdgeInsets.only(left: 5.0, right: 10),
           child: Icon(
@@ -123,12 +124,60 @@ class ProductCard extends StatelessWidget {
                       }
                     });
 
+=======
+          leading: Padding(
+            padding: EdgeInsets.only(left: 5.0, right: 10),
+            child: Icon(
+              widget.productIcon,
+              size: 35,
+            ),
+          ),
+          title: Text(widget.productName),
+          subtitle: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                '$finalPrice ₪',
+              ),
+              SizedBox(
+                width: 40,
+              ),
+              IconButton(
+                  icon: Icon(
+                    Icons.add_circle,
+                    color: Colors.tealAccent,
+                    size: 37,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      quantity++;
+                    });
+
+                    print('$quantity');
+                  }),
+              Text('$quantity'),
+              IconButton(
+                  icon: Icon(
+                    Icons.do_not_disturb_on,
+                    color: Colors.red[200],
+                    size: 37,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      quantity--;
+                      if (quantity == 0) {
+                        quantity++;
+                      }
+                    });
+
+>>>>>>> parent of 8c31881... bardoce sound
                     print('$quantity');
                   }),
               SizedBox(
                 width: 15,
               ),
             ],
+<<<<<<< HEAD
 =======
         leading: Padding(
           padding: const EdgeInsets.only(left: 5.0, right: 10),
@@ -152,6 +201,17 @@ class ProductCard extends StatelessWidget {
             onPressed: () {}),
       ),
 >>>>>>> parent of 822e52c... UI and functionaloty changes
+=======
+          ),
+          trailing: Transform.rotate(
+            angle: 3.142,
+            child: Icon(
+              Icons.backspace,
+              size: 20,
+              color: Colors.deepOrangeAccent,
+            ),
+          )),
+>>>>>>> parent of 8c31881... bardoce sound
     );
   }
 }

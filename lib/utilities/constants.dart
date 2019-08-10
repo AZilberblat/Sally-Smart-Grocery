@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 
 class DividerSally extends StatelessWidget {
@@ -21,5 +22,7 @@ const kAppBarMessagesTextStyle = TextStyle(
 
 const kHeaderTextStyle =
     TextStyle(fontWeight: FontWeight.bold, letterSpacing: 4, fontSize: 25);
+=======
+>>>>>>> parent of 8c31881... bardoce sound
 =======
 >>>>>>> parent of 8c31881... bardoce sound
