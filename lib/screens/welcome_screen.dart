@@ -7,11 +7,13 @@ import 'package:sally_smart/screens/checkout_screen.dart';
 import 'package:sally_smart/utilities/constants.dart';
 import 'package:sally_smart/utilities/product_card.dart';
 import 'package:sally_smart/utilities/scan_button_const.dart';
+import 'package:sally_smart/utilities/scan_methods.dart';
 //import 'package:sally_smart/utilities/scan_pageML.dart';
 //import 'package:flutter_camera_ml_vision/flutter_camera_ml_vision.dart';
 //import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 
 //List<ProductCard> shoppingList = [];
+final sallyDatabase = Firestore.instance;
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
@@ -21,7 +23,7 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  final sallyDatabase = Firestore.instance;
+  final textEditorController = TextEditingController();
   String _scanBarcode = 'Unknown';
   String productName = 'Product Test';
   double productPrice;
@@ -91,11 +93,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 70.0),
                       child: ScanMainButton(
-                          color: Colors.indigo,
+                          color: Colors.black,
                           iconData: Icons.add,
-                          buttonText: 'Add Test Product',
-                          onPressed:
-                              () /*async {
+                          buttonText: 'Test Product',
+                          onPressed: () async {
+                            /*async {
                           final barcode =
                               await Navigator.of(context).push<Barcode>(
                             MaterialPageRoute(
@@ -113,15 +115,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             print(barcode.displayValue);
                           });
                         },*/
-                              {
-                            sallyDatabase.collection('grocery').add({
-                              'barcode': '12345678',
-                              'name': 'listerin',
-                              'price': 55.8
-                            });
-                            productPrice = 12.76;
+
+                            //Getting data test from database
+
+                            //Test adding data to database:
+
+//                            sallyDatabase.collection('grocery').add({
+//                              'barcode': '264474382394',
+//                              'name': 'Tes1 432',
+//                              'price': 4325.45
+//                            });
+
                             setState(() {
-                              //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
+                              //adding a ProductCard to the shopping list with the ProductCard const. Works on scana
+//                              var test = await checkBarcode();
+//                              print(test);
                               shoppingList.add(
                                 ProductCard(
                                   barCode: productBarCode,
@@ -138,6 +146,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ),
                 ),
+                TextField(
+                  textAlign: TextAlign.center,
+                  onChanged: (value) {
+                    _scanBarcode = value;
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'הכנס ברקוד או שם מוצר ידנית'),
+                ),
                 Container(
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 15.0),
@@ -150,11 +166,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             buttonText: 'סרוק מוצר',
                             onPressed: () async {
                               //Navigator.pushNamed(context, ScanScreen.id);
-                              productPrice = 12.87;
+
                               await initPlatformState();
-                              //Changes the product name by referencing to the p.name
-                              productName = _scanBarcode;
+                              //Changes the product name by referencing to the database
                               productBarCode = _scanBarcode;
+                              productPrice =
+                                  await getProductPrice(_scanBarcode);
+                              productName = await getProductName(_scanBarcode);
 
                               setState(() {
                                 //checking if a product was already scanned

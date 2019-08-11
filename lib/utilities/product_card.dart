@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sally_smart/utilities/constants.dart';
 
 class ProductCard extends StatefulWidget {
   final String productName;
@@ -36,7 +37,10 @@ class _ProductCardState extends State<ProductCard> {
             size: 35,
           ),
         ),
-        title: Text(widget.productName),
+        title: Text(
+          widget.productName,
+          style: kProductNameTextStyle,
+        ),
         subtitle: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
