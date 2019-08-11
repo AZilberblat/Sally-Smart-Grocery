@@ -15,7 +15,7 @@ getProductName(String barcode) async {
   });
 }
 
-// Gets the product name according to the barcode in the sallyDatabase
+// Gets the product price according to the barcode in the sallyDatabase
 getProductPrice(String barcode) async {
   return await sallyDatabase
       .collection('grocery')

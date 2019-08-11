@@ -65,5 +65,5 @@ dependencies {
     //api 'com.google.firebase:firebase-ml-vision-image-label-model:18.0.0'
 }
 
-//apply plugin: 'com.google.gms.google-services'
+
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
