@@ -29,3 +29,10 @@ getProductPrice(String barcode) async {
     }
   });
 }
+
+addProductToFireStore(String barcode, String name, double price) async {
+  return await sallyDatabase
+      .collection('grocery')
+      .document(barcode)
+      .setData({"name": name, "price": price});
+}
