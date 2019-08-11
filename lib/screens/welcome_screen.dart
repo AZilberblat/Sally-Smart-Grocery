@@ -88,64 +88,64 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 DividerSally(),
                 shoppingListBuilder(),
                 DividerSally(),
-                Container(
-                  child: Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 70.0),
-                      child: ScanMainButton(
-                          color: Colors.black,
-                          iconData: Icons.add,
-                          buttonText: 'Test Product',
-                          onPressed: () async {
-                            /*async {
-                          final barcode =
-                              await Navigator.of(context).push<Barcode>(
-                            MaterialPageRoute(
-                              builder: (c) {
-                                return ScanPage();
-                              },
-                            ),
-                          );
-                          if (barcode == null) {
-                            return;
-                          }
-
-                          setState(() {
-                            data.add(barcode.displayValue);
-                            print(barcode.displayValue);
-                          });
-                        },*/
-
-                            //Getting data test from database
-
-                            //Test adding data to database:
-
-//                            sallyDatabase.collection('grocery').add({
-//                              'barcode': '264474382394',
-//                              'name': 'Tes1 432',
-//                              'price': 4325.45
+//                Container(
+//                  child: Center(
+//                    child: Padding(
+//                      padding: EdgeInsets.symmetric(horizontal: 70.0),
+//                      child: ScanMainButton(
+//                          color: Colors.black,
+//                          iconData: Icons.add,
+//                          buttonText: 'Test Product',
+//                          onPressed: () async {
+//                            /*async {
+//                          final barcode =
+//                              await Navigator.of(context).push<Barcode>(
+//                            MaterialPageRoute(
+//                              builder: (c) {
+//                                return ScanPage();
+//                              },
+//                            ),
+//                          );
+//                          if (barcode == null) {
+//                            return;
+//                          }
+//
+//                          setState(() {
+//                            data.add(barcode.displayValue);
+//                            print(barcode.displayValue);
+//                          });
+//                        },*/
+//
+//                            //Getting data test from database
+//
+//                            //Test adding data to database:
+//
+////                            sallyDatabase.collection('grocery').add({
+////                              'barcode': '264474382394',
+////                              'name': 'Tes1 432',
+////                              'price': 4325.45
+////                            });
+//
+//                            setState(() {
+//                              //adding a ProductCard to the shopping list with the ProductCard const. Works on scana
+////                              var test = await checkBarcode();
+////                              print(test);
+//                              shoppingList.add(
+//                                ProductCard(
+//                                  barCode: productBarCode,
+//                                  id: productId.toString(),
+//                                  productName: productName,
+//                                  productPrice: productPrice,
+//                                  productIcon: productIcon,
+//                                ),
+//                              );
+//                              productId++;
 //                            });
-
-                            setState(() {
-                              //adding a ProductCard to the shopping list with the ProductCard const. Works on scana
-//                              var test = await checkBarcode();
-//                              print(test);
-                              shoppingList.add(
-                                ProductCard(
-                                  barCode: productBarCode,
-                                  id: productId.toString(),
-                                  productName: productName,
-                                  productPrice: productPrice,
-                                  productIcon: productIcon,
-                                ),
-                              );
-                              productId++;
-                            });
-                            print(shoppingList);
-                          }),
-                    ),
-                  ),
-                ),
+//                            print(shoppingList);
+//                          }),
+//                    ),
+//                  ),
+//                ),
                 TextField(
                   textAlign: TextAlign.center,
                   onChanged: (value) {

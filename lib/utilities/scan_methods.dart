@@ -7,10 +7,10 @@ getProductName(String barcode) async {
       .document(barcode)
       .get()
       .then((snapshot) {
-    if (snapshot.data != null) {
+    try {
       return snapshot.data['name'];
-    } else {
-      print('Error');
+    } catch (e) {
+      return 'מוצר לא קיים';
     }
   });
 }
@@ -22,10 +22,10 @@ getProductPrice(String barcode) async {
       .document(barcode)
       .get()
       .then((snapshot) {
-    if (snapshot.data != null) {
+    try {
       return snapshot.data['price'];
-    } else {
-      print('Error');
+    } catch (e) {
+      return 0;
     }
   });
 }
