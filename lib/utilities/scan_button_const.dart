@@ -33,9 +33,9 @@ class ScanMainButton extends StatelessWidget {
                   buttonText,
                   style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'Cousine',
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                      fontFamily: 'Nehama',
+                      fontSize: 25,
+                      fontWeight: FontWeight.w300),
                 ),
               ),
             ],

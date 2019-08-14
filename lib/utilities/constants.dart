@@ -15,23 +15,27 @@ class DividerSally extends StatelessWidget {
 const kAppBarMessagesTextStyle = TextStyle(
   fontSize: 30.0,
   fontWeight: FontWeight.w900,
-  fontFamily: 'SecularOne',
+  fontFamily: 'Nehama',
 );
 
-const kHeaderTextStyle =
-    TextStyle(fontWeight: FontWeight.bold, letterSpacing: 4, fontSize: 25);
+const kHeaderTextStyle = TextStyle(
+    fontWeight: FontWeight.bold,
+    letterSpacing: 2,
+    fontSize: 25,
+    fontFamily: 'Avraham');
 
 const kProductNameTextStyle =
     TextStyle(fontWeight: FontWeight.bold, fontSize: 12);
 
 const kTextFieldDecoration = InputDecoration(
   hintText: '',
-  icon: Icon(
-    Icons.search,
-  ),
+  filled: true,
+  fillColor: Color(0x8C03434D),
+  prefixIcon: Icon(Icons.search),
   alignLabelWithHint: true,
   hintStyle: TextStyle(color: Colors.white),
-  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+  labelStyle: TextStyle(color: Colors.white70, fontFamily: 'Nehama'),
+  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
