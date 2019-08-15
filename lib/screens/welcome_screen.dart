@@ -59,8 +59,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: Color(0xFF21bacf),
         appBar: AppBar(
+          elevation: 3,
           backgroundColor: Colors.black54,
           leading: Icon(
             Icons.shopping_basket,
@@ -71,23 +72,59 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             style: kHeaderTextStyle,
           ),
         ),
-        body: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 25.0),
-                  child: Container(
-                    child: Text(
-                      'Welcome message',
-                      style: kHeaderTextStyle,
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Color(0xFF21bacf),
+              Color(0xFF027a8b),
+              Color(0xFF046D7D)
+            ], stops: [
+              0.1,
+              0.3,
+              0.7,
+            ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+          ),
+          child: SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Text(
+                        'ברוכה הבאה, סאלי',
+                        textAlign: TextAlign.right,
+                        style: kHeaderTextStyle,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 5, right: 15),
+                        child: Hero(
+                          tag: 'Sally',
+                          child: CircleAvatar(
+                            backgroundImage:
+                                AssetImage('images/missing_avatar_F.png'),
+                            maxRadius: 25,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      onChanged: (value) {
+                        _scanBarcode = value;
+                      },
+                      decoration: kTextFieldDecoration.copyWith(
+                          hintText: '...הכנס ברקוד או שם מוצר ידנית'),
                     ),
                   ),
-                ),
-                DividerSally(),
-                shoppingListBuilder(),
-                DividerSally(),
+                  DividerSally(),
+                  shoppingListBuilder(),
+                  DividerSally(),
 //                Container(
 //                  child: Center(
 //                    child: Padding(
@@ -146,63 +183,59 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 //                    ),
 //                  ),
 //                ),
-                TextField(
-                  textAlign: TextAlign.center,
-                  onChanged: (value) {
-                    _scanBarcode = value;
-                  },
-                  decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'הכנס ברקוד או שם מוצר ידנית'),
-                ),
-                Container(
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: 15.0),
+
+                  Container(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 40),
-                      child: Column(
-                        children: <Widget>[
-                          ScanMainButton(
-                            iconData: Icons.camera,
-                            buttonText: 'סרוק מוצר',
-                            onPressed: () async {
-                              //Navigator.pushNamed(context, ScanScreen.id);
+                      padding: EdgeInsets.only(bottom: 15.0),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        child: Column(
+                          children: <Widget>[
+                            ScanMainButton(
+                              iconData: Icons.camera,
+                              buttonText: 'סרוק מוצר',
+                              onPressed: () async {
+                                //Navigator.pushNamed(context, ScanScreen.id);
 
-                              await initPlatformState();
-                              //Changes the product name by referencing to the database
-                              productBarCode = _scanBarcode;
-                              productPrice =
-                                  await getProductPrice(_scanBarcode);
-                              productName = await getProductName(_scanBarcode);
+                                await initPlatformState();
+                                //Changes the product name by referencing to the database
+                                productBarCode = _scanBarcode;
+                                productPrice =
+                                    await getProductPrice(_scanBarcode);
+                                productName =
+                                    await getProductName(_scanBarcode);
 
-                              setState(() {
-                                //checking if a product was already scanned
+                                setState(() {
+                                  //checking if a product was already scanned
 
-                                //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
+                                  //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
 
-                                shoppingList.add(ProductCard(
-                                  barCode: productBarCode,
-                                  id: shoppingList.length.toString(),
-                                  productName: productName,
-                                  productPrice: productPrice,
-                                  productIcon: productIcon,
-                                ));
-                              });
-                            },
-                            color: Colors.teal,
-                          ),
-                          ScanMainButton(
-                              iconData: Icons.check,
-                              buttonText: 'Pay Now',
-                              color: Colors.green,
-                              onPressed: () {
-                                Navigator.pushNamed(context, CheckoutScreen.id);
-                              }),
-                        ],
+                                  shoppingList.add(ProductCard(
+                                    barCode: productBarCode,
+                                    id: shoppingList.length.toString(),
+                                    productName: productName,
+                                    productPrice: productPrice,
+                                    productIcon: productIcon,
+                                  ));
+                                });
+                              },
+                              color: Colors.teal,
+                            ),
+                            ScanMainButton(
+                                iconData: Icons.check,
+                                buttonText: 'מעבר לתשלום',
+                                color: Colors.green,
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, CheckoutScreen.id);
+                                }),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ));
@@ -232,15 +265,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
                 margin: EdgeInsets.symmetric(vertical: 5),
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: [
-                    Colors.deepPurple[200],
-                    Colors.deepPurple[300],
-                    Colors.deepPurple[400],
-                    Colors.deepPurple[600],
-                  ],
-                  stops: [0.1, 0.3, 0.6, 0.9],
-                )),
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: [
+                      Color(0x8C650223),
+                      Color(0x8CB9013E),
+                    ],
+                    stops: [0.1, 0.9],
+                  ),
+                ),
               ),
               child: item //ListTile(title: Text('${item.productName}.')),
               );

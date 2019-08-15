@@ -39,6 +39,8 @@ flutter:
 
   assets:
     - assets/barcode_sound.mp3
+    - assets/missing_avatar_F.png
+    - images/
 
 
   fonts:
@@ -51,5 +53,14 @@ flutter:
       fonts:
         - asset: fonts/SecularOne-Regular.ttf
 
+
+    - family: Nehama
+      fonts:
+        - asset: fonts/nehama-webfont.ttf
+
+
+    - family: Avraham
+      fonts:
+        - asset: fonts/Abraham-Regular.ttf
 
 

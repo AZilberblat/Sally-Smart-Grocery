@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sally_smart/utilities/constants.dart';
+import 'package:sally_smart/utilities/round_icon_button.dart';
 
 class ProductCard extends StatefulWidget {
   final String productName;
@@ -31,7 +32,9 @@ class _ProductCardState extends State<ProductCard> {
       elevation: 5.0,
       child: ListTile(
         leading: Padding(
-          padding: EdgeInsets.only(left: 5.0, right: 10),
+          padding: EdgeInsets.only(
+            left: 2.0,
+          ),
           child: Icon(
             widget.productIcon,
             size: 35,
@@ -42,53 +45,42 @@ class _ProductCardState extends State<ProductCard> {
           style: kProductNameTextStyle,
         ),
         subtitle: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  IconButton(
-                      icon: Icon(
-                        Icons.add_circle,
-                        color: Colors.tealAccent,
-                        size: 37,
-                      ),
-                      onPressed: () {
+                  RoundIconButton(
+                      icon: Icons.add,
+                      color: Colors.green,
+                      function: () {
                         setState(() {
                           quantity++;
                         });
-
-                        print('$quantity');
                       }),
-                  SizedBox(width: 3),
                   Text(
                     '$quantity',
                   ),
-                  IconButton(
-                      icon: Icon(
-                        Icons.do_not_disturb_on,
-                        color: Colors.red[200],
-                        size: 37,
-                      ),
-                      onPressed: () {
+                  RoundIconButton(
+                      icon: Icons.remove,
+                      color: Colors.red,
+                      function: () {
                         setState(() {
                           quantity--;
                           if (quantity == 0) {
                             quantity++;
                           }
                         });
-
-                        print('$quantity');
                       }),
                 ],
               ),
-            )
+            ),
+            Text(
+              '${finalPrice.toStringAsFixed(2)} ₪',
+              style: TextStyle(fontSize: 15),
+            ),
           ],
-        ),
-        trailing: Text(
-          '${finalPrice.toStringAsFixed(2)} ₪',
-          style: TextStyle(fontSize: 18),
         ),
       ),
     );
