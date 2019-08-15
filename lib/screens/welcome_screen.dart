@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:sally_smart/screens/checkout_screen.dart';
+import 'package:sally_smart/screens/registration_screen.dart';
 import 'package:sally_smart/utilities/constants.dart';
 import 'package:sally_smart/utilities/product_card.dart';
 import 'package:sally_smart/utilities/scan_button_const.dart';
@@ -73,17 +73,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ),
         ),
         body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              Color(0xFF21bacf),
-              Color(0xFF027a8b),
-              Color(0xFF046D7D)
-            ], stops: [
-              0.1,
-              0.3,
-              0.7,
-            ], begin: Alignment.topLeft, end: Alignment.bottomRight),
-          ),
+          decoration: kBackgroundGradientScan,
           child: SafeArea(
             child: Center(
               child: Column(
@@ -119,71 +109,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         _scanBarcode = value;
                       },
                       decoration: kTextFieldDecoration.copyWith(
+                          prefixIcon: Icon(Icons.search),
                           hintText: '...הכנס ברקוד או שם מוצר ידנית'),
                     ),
                   ),
                   DividerSally(),
                   shoppingListBuilder(),
                   DividerSally(),
-//                Container(
-//                  child: Center(
-//                    child: Padding(
-//                      padding: EdgeInsets.symmetric(horizontal: 70.0),
-//                      child: ScanMainButton(
-//                          color: Colors.black,
-//                          iconData: Icons.add,
-//                          buttonText: 'Test Product',
-//                          onPressed: () async {
-//                            /*async {
-//                          final barcode =
-//                              await Navigator.of(context).push<Barcode>(
-//                            MaterialPageRoute(
-//                              builder: (c) {
-//                                return ScanPage();
-//                              },
-//                            ),
-//                          );
-//                          if (barcode == null) {
-//                            return;
-//                          }
-//
-//                          setState(() {
-//                            data.add(barcode.displayValue);
-//                            print(barcode.displayValue);
-//                          });
-//                        },*/
-//
-//                            //Getting data test from database
-//
-//                            //Test adding data to database:
-//
-////                            sallyDatabase.collection('grocery').add({
-////                              'barcode': '264474382394',
-////                              'name': 'Tes1 432',
-////                              'price': 4325.45
-////                            });
-//
-//                            setState(() {
-//                              //adding a ProductCard to the shopping list with the ProductCard const. Works on scana
-////                              var test = await checkBarcode();
-////                              print(test);
-//                              shoppingList.add(
-//                                ProductCard(
-//                                  barCode: productBarCode,
-//                                  id: productId.toString(),
-//                                  productName: productName,
-//                                  productPrice: productPrice,
-//                                  productIcon: productIcon,
-//                                ),
-//                              );
-//                              productId++;
-//                            });
-//                            print(shoppingList);
-//                          }),
-//                    ),
-//                  ),
-//                ),
-
                   Container(
                     child: Padding(
                       padding: EdgeInsets.only(bottom: 15.0),
@@ -192,7 +124,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         child: Column(
                           children: <Widget>[
                             ScanMainButton(
-                              iconData: Icons.camera,
+                              iconData: Icons.flip,
                               buttonText: 'סרוק מוצר',
                               onPressed: () async {
                                 //Navigator.pushNamed(context, ScanScreen.id);
@@ -227,7 +159,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 color: Colors.green,
                                 onPressed: () {
                                   Navigator.pushNamed(
-                                      context, CheckoutScreen.id);
+                                      context, RegistrationScreen.id);
                                 }),
                           ],
                         ),
