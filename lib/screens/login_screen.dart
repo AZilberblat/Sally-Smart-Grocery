@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
           size: 30,
         ),
         title: Text(
-          'Sally - הרשמה',
+          'Sally - התחברות',
           textAlign: TextAlign.right,
           style: kHeaderTextStyle,
         ),

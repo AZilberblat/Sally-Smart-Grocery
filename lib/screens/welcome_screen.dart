@@ -1,5 +1,6 @@
 import 'package:audioplayers/audio_cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -23,6 +24,8 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  final _auth = FirebaseAuth.instance;
+
   final textEditorController = TextEditingController();
   String _scanBarcode = 'Unknown';
   String productName = 'Product Test';
@@ -69,8 +72,32 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ),
           title: Text(
             'Sally',
+            textAlign: TextAlign.end,
             style: kHeaderTextStyle,
           ),
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.settings), onPressed: () {}),
+            VerticalDivider(
+              color: Color(0x8CFFFFFF),
+              width: 3,
+            ),
+            IconButton(
+                icon: Icon(Icons.power_settings_new),
+                onPressed: () {
+                  _auth.signOut();
+                  Navigator.pop(context);
+                }),
+            VerticalDivider(
+              color: Color(0x8CFFFFFF),
+              width: 3,
+            ),
+            IconButton(icon: Icon(Icons.share), onPressed: () {}),
+            VerticalDivider(
+              color: Color(0x8CFFFFFF),
+              width: 3,
+            ),
+//            PopupMenuButton(itemBuilder: ),
+          ],
         ),
         body: Container(
           decoration: kBackgroundGradientScan,
@@ -105,11 +132,43 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     padding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
                     child: TextField(
                       textAlign: TextAlign.center,
-                      onChanged: (value) {
+                      onChanged: (value) async {
                         _scanBarcode = value;
+                        productPrice = await getProductPrice(_scanBarcode);
+                        productName = await getProductName(_scanBarcode);
                       },
                       decoration: kTextFieldDecoration.copyWith(
-                          prefixIcon: Icon(Icons.search),
+                          prefixIcon: IconButton(
+                            icon: Icon(Icons.search),
+                            onPressed: () {
+                              _scanBarcode = '';
+                              textEditorController.clear();
+
+                              try {
+                                setState(() {
+                                  textEditorController.clear();
+                                  //checking if a product was already scanned
+
+                                  //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
+
+                                  shoppingList.add(ProductCard(
+                                    barCode: productBarCode,
+                                    id: shoppingList.length.toString(),
+                                    productName: productName,
+                                    productPrice: productPrice,
+                                    productIcon: productIcon,
+                                  ));
+                                });
+                              } catch (e) {
+                                print(e);
+                              }
+                            },
+                          ),
+//                          prefix: IconButton(
+//                              icon: Icon(Icons.search),
+//                              onPressed: () {
+//
+//                              }),
                           hintText: '...הכנס ברקוד או שם מוצר ידנית'),
                     ),
                   ),
