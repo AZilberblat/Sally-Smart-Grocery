@@ -64,8 +64,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 18.0,
                     ),
                     ScanMainButton(
-                      buttonText: 'התחברות',
-                      iconData: Icons.extension,
+                      buttonText: !login ? 'התחברות' : 'הרשמה',
+                      iconData: !login ? Icons.extension : Icons.create,
                       color: Color(0xFF0F7DC6),
                       onPressed: () {
                         setState(() {
@@ -104,8 +104,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 10.0,
                           ),
                           ScanMainButton(
-                            buttonText: 'Log in',
-                            color: Colors.lightBlueAccent,
+                            buttonText: 'התחבר',
+                            iconData: Icons.arrow_forward,
+                            color: Color(0xFF21bacf),
                             onPressed: () async {
                               setState(() {
                                 showSpinner = true;
@@ -138,13 +139,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                ScanMainButton(
-                  buttonText: 'עדיין לא רשום? להרשמה',
-                  iconData: Icons.border_color,
-                  color: Color(0xFF21bacf),
-                  onPressed: () {
-                    Navigator.pushNamed(context, RegistrationScreen.id);
-                  },
+                Visibility(
+                  visible: !login,
+                  child: ScanMainButton(
+                    buttonText: 'עדיין לא רשום? להרשמה',
+                    iconData: Icons.border_color,
+                    color: Color(0xFF21bacf),
+                    onPressed: () {
+                      Navigator.pushNamed(context, RegistrationScreen.id);
+                    },
+                  ),
                 ),
               ],
             ),
