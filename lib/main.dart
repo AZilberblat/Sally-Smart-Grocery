@@ -15,7 +15,7 @@ class Sally extends StatelessWidget {
         backgroundColor: Colors.teal,
         cardColor: Color(0xFF068194),
       ),
-      initialRoute: WelcomeScreen.id,
+      initialRoute: LoginScreen.id,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
