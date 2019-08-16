@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'screens/checkout_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/registration_screen.dart';
 import 'screens/welcome_screen.dart';
 
-void main() => runApp(Sally());
+//void main() => runApp(Sally());
+
+void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(new Sally());
+  });
+}
 
 class Sally extends StatelessWidget {
   @override
