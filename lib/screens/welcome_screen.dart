@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:sally_smart/screens/login_screen.dart';
 import 'package:sally_smart/screens/registration_screen.dart';
 import 'package:sally_smart/utilities/constants.dart';
 import 'package:sally_smart/utilities/product_card.dart';
@@ -85,7 +86,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 icon: Icon(Icons.power_settings_new),
                 onPressed: () {
                   _auth.signOut();
-                  Navigator.pop(context);
+                  Navigator.pushNamed(context, LoginScreen.id);
                 }),
             VerticalDivider(
               color: Color(0x8CFFFFFF),
@@ -189,6 +190,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 //Navigator.pushNamed(context, ScanScreen.id);
 
                                 await initPlatformState();
+                                barcodeSound.play('barcode_sound.mp3');
+
                                 //Changes the product name by referencing to the database
                                 productBarCode = _scanBarcode;
                                 productPrice =

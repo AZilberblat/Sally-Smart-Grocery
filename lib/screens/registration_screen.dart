@@ -143,34 +143,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     SizedBox(
                       height: 8.0,
                     ),
-//                    ScanMainButton(
-//                      buttonText: 'הרשמה מהירה',
-//                      iconData: Icons.border_color,
-//                      color: Color(0xFF21bacf),
-//                      onPressed: () async {
-//                        setState(() {
-//                          showSpinner = true;
-//                        });
-//                        try {
-//                          final newUser =
-//                              await _auth.createUserWithEmailAndPassword(
-//                                  email: email, password: password);
-//                          if (newUser != null) {
-//                            Navigator.pushNamed(context, WelcomeScreen.id);
-//                          }
-//
-//                          setState(() {
-//                            showSpinner = false;
-//                          });
-//                        } catch (e) {
-//                          print(e);
-//                          print('An Error has occured');
-//                          setState(() {
-//                            showSpinner = false;
-//                          });
-//                        }
-//                      },
-//                    ),
                   ],
                 ),
               ],
