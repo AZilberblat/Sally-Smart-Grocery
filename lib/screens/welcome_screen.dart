@@ -14,6 +14,8 @@ import 'package:sally_smart/utilities/scan_methods.dart';
 //import 'package:flutter_camera_ml_vision/flutter_camera_ml_vision.dart';
 //import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 
+//working version
+
 //List<ProductCard> shoppingList = [];
 final sallyDatabase = Firestore.instance;
 
