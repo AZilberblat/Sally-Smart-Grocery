@@ -16,14 +16,14 @@ getProductName(String barcode) async {
 }
 
 // Gets the product price according to the barcode in the sallyDatabase
-getProductPrice(String barcode) async {
+Future<double> getProductPrice(String barcode) async {
   return await sallyDatabase
       .collection('grocery')
       .document(barcode)
       .get()
       .then((snapshot) {
     try {
-      return snapshot.data['price'];
+      return snapshot.data['price'] as double;
     } catch (e) {
       return 0;
     }

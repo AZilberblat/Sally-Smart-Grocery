@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sally_smart/change_notifiers/cart_change_notifier.dart';
 import 'package:sally_smart/utilities/constants.dart';
+import 'package:sally_smart/utilities/product.dart';
 import 'package:sally_smart/utilities/round_icon_button.dart';
 
 class ProductCard extends StatefulWidget {
-  final String productName;
-  final double productPrice;
-  final IconData productIcon;
-  final String id;
-  final String barCode;
+  final Product product;
 
-  const ProductCard({
-    this.productIcon,
-    @required this.productName,
-    @required this.productPrice,
-    @required this.id,
-    @required this.barCode,
-  });
+  const ProductCard({@required this.product});
 
   @override
   _ProductCardState createState() => _ProductCardState();
@@ -23,11 +16,12 @@ class ProductCard extends StatefulWidget {
 
 class _ProductCardState extends State<ProductCard> {
   double finalPrice;
-  int quantity = 1;
+
+  int get quantity => widget.product.quantity;
 
   @override
   Widget build(BuildContext context) {
-    finalPrice = quantity * widget.productPrice;
+    finalPrice = quantity * widget.product.price;
     return Card(
       elevation: 5.0,
       child: ListTile(
@@ -36,12 +30,12 @@ class _ProductCardState extends State<ProductCard> {
             left: 2.0,
           ),
           child: Icon(
-            widget.productIcon,
+            Icons.account_circle,
             size: 35,
           ),
         ),
         title: Text(
-          widget.productName,
+          widget.product.name,
           style: kProductNameTextStyle,
         ),
         subtitle: Row(
@@ -55,9 +49,8 @@ class _ProductCardState extends State<ProductCard> {
                       icon: Icons.add,
                       color: Colors.green,
                       function: () {
-                        setState(() {
-                          quantity++;
-                        });
+                        Provider.of<CartNotifier>(context)
+                            .increment(widget.product);
                       }),
                   Text(
                     '$quantity',
@@ -66,12 +59,8 @@ class _ProductCardState extends State<ProductCard> {
                       icon: Icons.remove,
                       color: Colors.red,
                       function: () {
-                        setState(() {
-                          quantity--;
-                          if (quantity == 0) {
-                            quantity++;
-                          }
-                        });
+                        Provider.of<CartNotifier>(context)
+                            .decrement(widget.product);
                       }),
                 ],
               ),

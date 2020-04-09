@@ -115,9 +115,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 final exsistUser =
                                     await _auth.signInWithEmailAndPassword(
                                         email: email, password: password);
+                                        final uid = exsistUser.user.uid;
                                 if (exsistUser != null) {
                                   Navigator.pushNamed(
-                                      context, WelcomeScreen.id);
+                                      context, WelcomeScreen.id, arguments: uid);
                                 }
                                 setState(() {
                                   showSpinner = false;
