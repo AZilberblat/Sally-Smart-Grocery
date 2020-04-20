@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:provider/provider.dart';
+import 'package:sally_smart/change_notifiers/account_notifier.dart';
 import 'package:sally_smart/screens/welcome_screen.dart';
 import 'package:sally_smart/utilities/constants.dart';
 import 'package:sally_smart/utilities/scan_button_const.dart';
@@ -9,6 +12,7 @@ import 'registration_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -16,9 +20,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool login = false;
   bool showSpinner = false;
-  String email;
-  String password;
+  String email =
+      kDebugMode ? 'avizilberblat@gmail.com' : null; //TODO: Remove credentials
+  String password = kDebugMode ? '123456' : null;
   final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +84,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         children: <Widget>[
                           TextField(
+                            controller: kDebugMode
+                                ? TextEditingController(text: email)
+                                : null,
                             keyboardType: TextInputType.emailAddress,
                             textAlign: TextAlign.center,
                             onChanged: (value) {
@@ -92,6 +101,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           TextField(
                             obscureText: true,
+                            controller: kDebugMode
+                                ? TextEditingController(text: '123456')
+                                : null,
                             textAlign: TextAlign.center,
                             onChanged: (value) {
                               password = value;
@@ -112,13 +124,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                 showSpinner = true;
                               });
                               try {
-                                final exsistUser =
+                                final existingUser =
                                     await _auth.signInWithEmailAndPassword(
                                         email: email, password: password);
-                                        final uid = exsistUser.user.uid;
-                                if (exsistUser != null) {
-                                  Navigator.pushNamed(
-                                      context, WelcomeScreen.id, arguments: uid);
+                                final uid = existingUser.user.uid;
+
+                                await Provider.of<AccountNotifier>(context,
+                                        listen: false)
+                                    .initialize(uid);
+
+                                if (existingUser != null) {
+                                  Navigator.pushNamed(context, WelcomeScreen.id,
+                                      arguments: uid);
                                 }
                                 setState(() {
                                   showSpinner = false;

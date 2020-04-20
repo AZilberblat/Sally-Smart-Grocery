@@ -1,28 +1,33 @@
 import 'package:audioplayers/audio_cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:sally_smart/change_notifiers/account_notifier.dart';
 import 'package:sally_smart/change_notifiers/cart_change_notifier.dart';
+import 'package:sally_smart/screens/add_new_card/add_new_card.dart';
+import 'package:sally_smart/screens/checkout_screen.dart';
 import 'package:sally_smart/screens/login_screen.dart';
-import 'package:sally_smart/screens/registration_screen.dart';
+import 'package:sally_smart/services/payment_service.dart';
 import 'package:sally_smart/utilities/constants.dart';
-import 'package:sally_smart/utilities/product.dart';
+import 'package:sally_smart/models/product.dart';
+import 'package:sally_smart/utilities/extensions.dart';
 import 'package:sally_smart/utilities/product_card.dart';
 import 'package:sally_smart/utilities/scan_button_const.dart';
 import 'package:sally_smart/utilities/scan_methods.dart';
 
-
 //working version
 
-//List<ProductCard> shoppingList = [];
 final sallyDatabase = Firestore.instance;
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
   final String uid;
+
   WelcomeScreen({@required this.uid});
 
   @override
@@ -48,8 +53,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      barcodeScanRes =
-          await FlutterBarcodeScanner.scanBarcode("#ff6666", "Cancel", true);
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.BARCODE);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -63,17 +68,123 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       _scanBarcode = barcodeScanRes;
     });
   }
+
   @override
-    void initState() {
-      super.initState();
-      Provider.of<CartNotifier>(context, listen: false).setUserDocument(uid: widget.uid);
-    }
+  void initState() {
+    super.initState();
+    Provider.of<CartNotifier>(context, listen: false)
+        .setUserDocument(uid: widget.uid);
+  }
+
+  PaymentService get paymentService => GetIt.I.get<PaymentService>();
 
   @override
   Widget build(BuildContext context) {
     return Consumer<CartNotifier>(
-      builder: (BuildContext context, CartNotifier shoppingList, Widget child) {
+      builder: (BuildContext context, CartNotifier cart, Widget child) {
         return Scaffold(
+            drawer: kDebugMode
+                ? Drawer(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          DrawerHeader(
+                            child: Text(
+                                'Admin Functions\nNote: Loading an existing order will delete items currently in the cart'),
+                          ),
+                          ExpansionTile(
+                            title: Text('Load Existing Order'),
+                            children: [
+                              FutureBuilder<QuerySnapshot>(
+                                future: Provider.of<AccountNotifier>(context,
+                                        listen: false)
+                                    .user
+                                    .documentReference
+                                    .collection('orders')
+                                    .getDocuments(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return Text('Loading documents');
+                                  } else {
+                                    return ListView(
+                                      shrinkWrap: true,
+                                      children: ListTile.divideTiles(
+                                          context: context,
+                                          tiles: [
+                                            for (final document
+                                                in snapshot.data.documents)
+                                              ListTile(
+                                                title: document.documentID
+                                                    .toText(),
+                                                subtitle: Text(
+                                                    'Number of products: ${document.data['products'].length}'),
+                                                onTap: () async {
+                                                  final userDoc = Provider.of<
+                                                              AccountNotifier>(
+                                                          context,
+                                                          listen: false)
+                                                      .user
+                                                      .documentReference;
+                                                  var existingProducts =
+                                                      await userDoc
+                                                          .collection('cart')
+                                                          .getDocuments();
+                                                  existingProducts.documents
+                                                      .forEach((element) async {
+                                                    element.reference.delete();
+                                                  });
+                                                  final products =
+                                                      document.data['products'];
+                                                  for (final product
+                                                      in products) {
+                                                    userDoc
+                                                        .collection('cart')
+                                                        .add(product);
+                                                  }
+                                                  Navigator.pop(context);
+                                                },
+                                              )
+                                          ]).toList(),
+                                    );
+                                  }
+                                },
+                              )
+                            ],
+                          ),
+                          Divider(),
+                          Card(
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              child: Column(
+                                children: [
+                                  Text('Stripe Payments Test'),
+                                  Divider(),
+                                  FlatButton(
+                                    child: Text('Add Card'),
+                                    onPressed: () async {
+                                      await paymentService.addCard();
+                                    },
+                                  ),
+                                  FlatButton(
+                                    child: Text('initialize google pay'),
+                                    onPressed: () async {
+                                      await paymentService.createPayment();
+                                    },
+                                  ),
+                                  FlatButton(
+                                    child: Text('Get customer session'),
+                                    onPressed: () async {},
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : null,
             backgroundColor: Color(0xFF21bacf),
             appBar: AppBar(
               elevation: 3,
@@ -88,7 +199,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 style: kHeaderTextStyle,
               ),
               actions: <Widget>[
-                IconButton(icon: Icon(Icons.settings), onPressed: () {}),
+                IconButton(
+                    icon: Icon(Icons.settings),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(AddNewCard.id);
+                    }),
                 VerticalDivider(
                   color: Color(0x8CFFFFFF),
                   width: 3,
@@ -167,14 +282,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                                       //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
 
-                                      shoppingList.add(
+                                      cart.add(
                                         Product(
-                                          barCode: productBarCode,
-                                          id: shoppingList.length,
-                                          name: productName,
-                                          price: productPrice,
-                                          documentReference: null
-                                        ),
+                                            barCode: productBarCode,
+                                            id: cart.length,
+                                            name: productName,
+                                            price: productPrice,
+                                            documentReference: null),
                                       );
                                     });
                                   } catch (e) {
@@ -191,7 +305,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ),
                       DividerSally(),
-                      shoppingListBuilder(shoppingList),
+                      shoppingListBuilder(cart),
                       DividerSally(),
                       Container(
                         child: Padding(
@@ -211,6 +325,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                                     //Changes the product name by referencing to the database
                                     productBarCode = _scanBarcode;
+                                    if (productBarCode.isEmpty) {
+                                      return;
+                                    }
                                     productPrice =
                                         await getProductPrice(_scanBarcode);
                                     productName =
@@ -220,26 +337,31 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                                     //adding a ProductCard to the shopping list with the ProductCard const. Works on scan
 
-                                    shoppingList.add(
+                                    cart.add(
                                       Product(
                                         barCode: productBarCode,
-                                        id: shoppingList.length,
+                                        id: cart.length,
                                         name: productName,
                                         price: productPrice,
-                                       documentReference: null
+                                        documentReference: null,
                                       ),
                                     );
                                   },
                                   color: Colors.teal,
                                 ),
                                 ScanMainButton(
-                                    iconData: Icons.check,
-                                    buttonText: 'מעבר לתשלום',
-                                    color: Colors.green,
-                                    onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, RegistrationScreen.id);
-                                    }),
+                                  iconData: Icons.check,
+                                  buttonText: 'מעבר לתשלום',
+                                  color: Colors.green,
+                                  onPressed: cart.shoppingList.isNotEmpty
+                                      ? () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            CheckoutScreen.id,
+                                          );
+                                        }
+                                      : null,
+                                ),
                               ],
                             ),
                           ),
@@ -266,7 +388,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           return Dismissible(
               key: Key(item.id.toString()),
               direction: DismissDirection.startToEnd,
-              onDismissed: (direction) { //fix swipe to delete
+              onDismissed: (direction) {
+                //fix swipe to delete
                 cart.delete(item);
               },
               background: Container(

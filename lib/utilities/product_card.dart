@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sally_smart/change_notifiers/cart_change_notifier.dart';
 import 'package:sally_smart/utilities/constants.dart';
-import 'package:sally_smart/utilities/product.dart';
+import 'package:sally_smart/models/product.dart';
 import 'package:sally_smart/utilities/round_icon_button.dart';
 
 class ProductCard extends StatefulWidget {

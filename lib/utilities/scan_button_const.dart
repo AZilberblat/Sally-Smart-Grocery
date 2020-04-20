@@ -5,11 +5,13 @@ class ScanMainButton extends StatelessWidget {
   final Function onPressed;
   final String buttonText;
   final Color color;
-  const ScanMainButton(
-      {this.iconData,
-      @required this.buttonText,
-      @required this.onPressed,
-      this.color});
+
+  const ScanMainButton({
+    this.iconData,
+    @required this.buttonText,
+    @required this.onPressed,
+    this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +34,13 @@ class ScanMainButton extends StatelessWidget {
                 child: Text(
                   buttonText,
                   style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Nehama',
-                      fontSize: 25,
-                      fontWeight: FontWeight.w300),
+                    color: onPressed != null
+                        ? Colors.white
+                        : Colors.white.withOpacity(.5),
+                    fontFamily: 'Nehama',
+                    fontSize: 25,
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
               ),
             ],

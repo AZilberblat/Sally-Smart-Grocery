@@ -40,7 +40,7 @@ class Product {
     };
   }
 
-  factory Product.fromJson(Map<String, dynamic> json) {
+  factory Product.fromJson(Map<dynamic, dynamic> json) {
     return Product(
       name: json['name'] as String,
       price: json['price'] as double,
@@ -53,13 +53,12 @@ class Product {
   factory Product.fromDocument(DocumentSnapshot documentSnapshot) {
     final json = documentSnapshot.data;
     return Product(
-      name: json['name'] as String,
-      price: json['price'] as double,
-      barCode: json['barCode'] as String,
-      id: json['id'] as int,
-      quantity: json['quantity'] as int,
-      documentReference: documentSnapshot.reference
-    );
+        name: json['name'] as String,
+        price: json['price'] as double,
+        barCode: json['barCode'] as String,
+        id: json['id'] as int,
+        quantity: json['quantity'] as int,
+        documentReference: documentSnapshot.reference);
   }
   Product copyWith({
     String name,

@@ -1,6 +1,8 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sally_smart/utilities/product.dart';
+import 'package:sally_smart/models/product.dart';
 
 class CartNotifier extends ChangeNotifier {
   List<Product> shoppingList;
@@ -63,6 +65,9 @@ class CartNotifier extends ChangeNotifier {
       shoppingList =
           cart.map((document) => Product.fromDocument(document)).toList();
       notifyListeners(); // this is how we make the screen show the new data.
+      stateChangeStream.add(null);
     }
   }
+
+  StreamController stateChangeStream = StreamController.broadcast();
 }

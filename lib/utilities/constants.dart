@@ -72,3 +72,5 @@ const kBackgroundGradientRegister = BoxDecoration(
     0.7,
   ], begin: Alignment.topLeft, end: Alignment.bottomRight),
 );
+
+const String israeliNewShekelSign = '₪';
